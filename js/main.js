@@ -27,10 +27,13 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ─── Active Nav Link ─── */
-  const page = window.location.pathname.split('/').pop() || 'index.html';
+  const path = window.location.pathname.replace(/\/$/, '').split('/').pop() || '';
   document.querySelectorAll('nav a').forEach(function (a) {
-    const href = a.getAttribute('href');
-    if (href === page || (page === '' && href === 'index.html') || (page === 'index.html' && href === 'index.html')) {
+    const href = a.getAttribute('href').replace(/^\//, '').replace(/\.html$/, '');
+    if (
+      (path === '' && (href === '' || href === '/')) ||
+      (path !== '' && href === path)
+    ) {
       a.classList.add('active');
     }
   });
