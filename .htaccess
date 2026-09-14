@@ -9,8 +9,8 @@ RewriteRule ^index\.html$ / [R=301,L]
 RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
 RewriteRule ^ /%1 [R=301,L]
 
-# Handle /blog explicitly (blog/ directory exists, so -d check would block it)
-RewriteRule ^blog$ blog.html [L]
+# Handle /blog and /blog/ explicitly (blog/ directory exists, so -d check would block it)
+RewriteRule ^blog/?$ blog.html [L]
 
 # Serve .html file for clean URLs (root-level pages)
 RewriteCond %{REQUEST_FILENAME} !-f
