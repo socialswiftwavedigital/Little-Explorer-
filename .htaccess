@@ -1,17 +1,22 @@
 Options -Indexes
 
-# Remove .html extension from URLs
 RewriteEngine On
 
 # Redirect index.html to root
 RewriteRule ^index\.html$ / [R=301,L]
 
-# Remove .html from all other pages
+# Redirect .html URLs to clean URLs (must come before the rewrite rule)
+RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# Serve .html file for clean URLs (root-level pages)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.html -f
 RewriteRule ^(.+)$ $1.html [L]
 
-# Redirect .html URLs to clean URLs
-RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
-RewriteRule ^ /%1 [R=301,L]
+# Serve blog posts: /blog/slug → /blog/slug.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/blog/%1.html -f
+RewriteRule ^blog/([^/]+)$ blog/$1.html [L]
