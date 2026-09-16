@@ -199,12 +199,33 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  /* ─── Forms: show success message ─── */
+  /* ─── Forms: AJAX submit to contact.php ─── */
   document.querySelectorAll('form.ajax-form').forEach(function (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var msg = form.querySelector('.success');
-      if (msg) msg.style.display = 'block';
+      var btn = form.querySelector('.pw-submit');
+      var successMsg = form.querySelector('.success');
+      var errorMsg  = form.querySelector('.form-error');
+
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+
+      var data = new FormData(form);
+
+      fetch('/contact.php', { method: 'POST', body: data })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (res.success) {
+            form.reset();
+            if (successMsg) { successMsg.hidden = false; }
+            if (btn) btn.hidden = true;
+          } else {
+            throw new Error(res.error || 'Send failed');
+          }
+        })
+        .catch(function () {
+          if (errorMsg) { errorMsg.hidden = false; }
+          if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message'; }
+        });
     });
   });
 
