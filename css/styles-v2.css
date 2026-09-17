@@ -2159,7 +2159,7 @@ main.bg-aqua   { background: #f0fbff; }
 .zti-gold   { background: rgba(255,255,255,.2); }
 .zti-aqua   { background: rgba(255,255,255,.2); }
 .zone-ticket-item h3 { font-size: 17px; margin: 0 0 6px; color: #fff; }
-.zone-ticket-item p  { font-size: 14px; margin: 0; opacity: .88; }
+.zone-ticket-item p  { font-size: 14px; margin: 0; color: #fff; opacity: .88; }
 
 .zone-details { padding: 0 max(4vw, 20px) 80px; }
 .zone-detail-block {
