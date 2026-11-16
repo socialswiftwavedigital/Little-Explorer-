@@ -29,7 +29,7 @@ $subject_labels = [
 ];
 $subject_label = $subject_labels[$subject] ?? 'Website Inquiry';
 
-$to          = 'Little.explorer904@gmail.com';
+$to          = 'social.swiftwavedigital@gmail.com';
 $mail_subject = '[Little Explorers] ' . $subject_label . ' from ' . $name;
 
 $body  = "You have a new message from the Little Explorers World website.\n\n";
@@ -43,6 +43,28 @@ $body .= "\n--\nSent via littleexplorersworld.com/contact\n";
 $headers  = "From: website@littleexplorersworld.com\r\n";
 $headers .= "Reply-To: $email\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion();
+
+// Forward the inquiry to the CRM inbox. Failures are ignored so the form
+// (and the email below) keep working even if the CRM is down.
+if (function_exists('curl_init')) {
+    $ch = curl_init('https://crm.littleexplorersworld.com/inquiry.php');
+    curl_setopt_array($ch, [
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => http_build_query([
+            'name'    => $name,
+            'phone'   => $phone,
+            'email'   => $email,
+            'subject' => $subject,
+            'message' => $message,
+            'ip'      => $_SERVER['REMOTE_ADDR'] ?? '',
+        ]),
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CONNECTTIMEOUT => 2,
+        CURLOPT_TIMEOUT        => 4,
+    ]);
+    @curl_exec($ch);
+    curl_close($ch);
+}
 
 if (mail($to, $mail_subject, $body, $headers)) {
     echo json_encode(['success' => true]);
