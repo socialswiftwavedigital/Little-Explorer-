@@ -29,7 +29,7 @@ $subject_labels = [
 ];
 $subject_label = $subject_labels[$subject] ?? 'Website Inquiry';
 
-$to          = 'social.swiftwavedigital@gmail.com';
+$to          = 'Little.explorer904@gmail.com';
 $mail_subject = '[Little Explorers] ' . $subject_label . ' from ' . $name;
 
 $body  = "You have a new message from the Little Explorers World website.\n\n";
