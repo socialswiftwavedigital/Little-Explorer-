@@ -2560,3 +2560,23 @@ main.bg-aqua   { background: #f0fbff; }
 @media (max-width: 600px) {
   .contact-cards-grid { grid-template-columns: 1fr; }
 }
+
+/* Birthday themes + photography packages */
+.bp-themes, .bp-photo { padding: 70px max(6vw, 28px); }
+.bp-themes-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.bp-theme { border-radius: 22px; padding: 26px 16px; text-align: center; border: 1px solid #f0e8f5; box-shadow: 0 8px 28px #4b365b0d; transition: transform .25s; }
+.bp-theme:hover { transform: translateY(-5px); }
+.bp-theme .bp-theme-emoji { font-size: 40px; display: block; margin-bottom: 8px; }
+.bp-theme h3 { font-size: 17px; margin: 0; font-weight: 500; }
+.bp-theme-note { text-align: center; color: #666; font-size: 14px; margin: 26px auto 0; max-width: 640px; }
+.bp-photo-grid { max-width: 820px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.bp-photo-card { background: #fff; border-radius: 24px; padding: 34px 28px; text-align: center; border: 1px solid #f0e8f5; box-shadow: 0 8px 28px #4b365b0d; }
+.bp-photo-card.featured { border: 2px solid var(--pink); }
+.bp-photo-card h3 { font-size: 20px; margin: 0 0 6px; font-weight: 600; }
+.bp-photo-price { font-size: 34px; font-weight: 700; color: var(--purple); margin: 8px 0 16px; }
+.bp-photo-price small { font-size: 14px; color: #888; font-weight: 400; }
+.bp-photo-card ul { list-style: none; padding: 0; margin: 0 0 22px; color: #555; font-size: 15px; }
+.bp-photo-card li { padding: 6px 0; }
+.bp-photo-card li i { color: var(--green); margin-right: 8px; }
+@media (max-width: 900px) { .bp-themes-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .bp-photo-grid { grid-template-columns: 1fr; } .bp-themes, .bp-photo { padding: 50px 20px; } }
